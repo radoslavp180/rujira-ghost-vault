@@ -1,0 +1,5 @@
+let current_debt_tokens = user_debt_shares.multiply_ratio(total_debt_tokens, total_debt_shares);
+
+if current_debt_tokens > borrow_limit {
+    return Err(ContractError::BorrowLimitExceeded {});
+}
