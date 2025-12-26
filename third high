@@ -1,0 +1,16 @@
+pub fn ensure_collateral_decrease(
+    old: Vec<Coin>,
+    new: Vec<Coin>,
+    debt_denom: String, // Added param
+) -> Result<(), ContractError> {
+    for n in new {
+        if n.denom == debt_denom { continue; }
+        
+        if let Some(o) = old.iter().find(|c| c.denom == n.denom) {
+            if n.amount > o.amount {
+                return Err(ContractError::UnauthorizedCollateralIncrease {});
+            }
+        }
+    }
+    Ok(())
+}
