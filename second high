@@ -1,0 +1,11 @@
+let overpaid_shares = user_repaid_shares.saturating_sub(total_user_debt_shares);
+
+if !overpaid_shares.is_zero() {
+    let refund_amount = overpaid_shares.multiply_ratio(total_debt_tokens, total_debt_shares);
+    
+    let refund_msg = BankMsg::Send {
+        to_address: info.sender.to_string(),
+        amount: coins(refund_amount.u128(), debt_denom),
+    };
+    
+}
